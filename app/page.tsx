@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { softwareData } from "./software/data";
 
 export default function Home() {
   const categories = [
@@ -23,45 +25,13 @@ export default function Home() {
       description: "Explore government, private and online jobs.",
     },
   ];
-
-  const software = [
-    {
-      image: "/software/chrome.png",
-      name: "Google Chrome",
-      category: "Web Browser",
-      version: "Latest Version",
-      description:
-        "Fast, secure and easy-to-use web browser for everyday browsing.",
-      badge: "Popular",
-    },
-    {
-      image: "/software/vlc.png",
-      name: "VLC Media Player",
-      category: "Media Player",
-      version: "Latest Version",
-      description:
-        "Powerful media player for videos, music and multiple file formats.",
-      badge: "Free",
-    },
-    {
-      image: "/software/7zip.png",
-      name: "7-Zip",
-      category: "File Compression",
-      version: "Latest Version",
-      description:
-        "Open-source tool for compressing and extracting files quickly.",
-      badge: "Open Source",
-    },
-    {
-      image: "/software/microsoft-office.png",
-      name: "Microsoft Office",
-      category: "Office Software",
-      version: "Latest Version",
-      description:
-        "Create documents, spreadsheets, presentations and professional work.",
-      badge: "Productivity",
-    },
-  ];
+const software = Object.entries(softwareData).map(
+  ([slug, item]) => ({
+    slug,
+    ...item,
+    badge: "Popular",
+  })
+);
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
@@ -283,12 +253,12 @@ export default function Home() {
                     <span>✓ Safe Download</span>
                   </div>
 
-                  <a
-                    href="#"
-                    className="mt-5 block rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 px-5 py-3.5 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-blue-800 hover:to-indigo-800 hover:shadow-lg"
-                  >
-                    View Download →
-                  </a>
+                 <Link
+  href={`/software/${item.slug}`}
+  className="mt-5 block rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 px-5 py-3.5 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-blue-800 hover:to-indigo-800 hover:shadow-lg"
+>
+  View Download →
+</Link>
                 </div>
               </article>
             ))}
@@ -401,7 +371,7 @@ export default function Home() {
         <div className="border-t border-slate-800">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-center text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
             <p>
-              © 2026 EduSoftHub. All rights reserved.
+              © 2026 EduSoftHub. All rights reservedcd C:\Users\TRAVELO\Desktop\edusofthub-clean.
             </p>
 
             <p>
