@@ -1,65 +1,369 @@
-import Image from "next/image";
-
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+  const categories = [
+    {
+      icon: "💻",
+      title: "Free Software",
+      description: "Download useful and trusted free software.",
+    },
+    {
+      icon: "📚",
+      title: "Education",
+      description: "Notes, tutorials, study guides and resources.",
+    },
+    {
+      icon: "🤖",
+      title: "AI Tools",
+      description: "Discover the latest AI tools and helpful guides.",
+    },
+    {
+      icon: "💼",
+      title: "Jobs",
+      description: "Explore government, private and online jobs.",
+    },
+  ];
+
+  const software = [
+    {
+      icon: "🌐",
+      name: "Google Chrome",
+      category: "Web Browser",
+      version: "Latest Version",
+      description: "Fast, secure and easy-to-use web browser.",
+    },
+    {
+      icon: "🎬",
+      name: "VLC Media Player",
+      category: "Media Player",
+      version: "Latest Version",
+      description: "Free media player for videos, music and streaming.",
+    },
+    {
+      icon: "🗜️",
+      name: "7-Zip",
+      category: "File Compression",
+      version: "Latest Version",
+      description: "Open-source tool for compressing and extracting files.",
+    },
+    {
+      icon: "📝",
+      name: "LibreOffice",
+      category: "Office Software",
+      version: "Latest Version",
+      description: "Free office suite for documents and spreadsheets.",
+    },
+  ]
+
+   return (
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-xl font-bold text-white">
+              E
+            </div>
+
+            <div>
+              <h2 className="text-xl font-extrabold">
+                EduSoft<span className="text-blue-700">Hub</span>
+              </h2>
+              <p className="text-xs text-slate-500">
+                Learn. Download. Grow.
+              </p>
+            </div>
+          </a>
+
+          {/* Navigation Links */}
+          <div className="hidden items-center gap-7 text-sm font-semibold md:flex">
+            <a href="#" className="text-blue-700">
+              Home
+            </a>
+
+            <a href="#software" className="hover:text-blue-700">
+              Software
+            </a>
+
+            <a href="#education" className="hover:text-blue-700">
+              Education
+            </a>
+
+            <a href="#ai-tools" className="hover:text-blue-700">
+              AI Tools
+            </a>
+
+            <a href="#jobs" className="hover:text-blue-700">
+              Jobs
+            </a>
+
+            <a href="#blog" className="hover:text-blue-700">
+              Blog
+            </a>
+          </div>
+
+          {/* Contact Button */}
+          <a
+            href="#contact"
+            className="rounded-lg bg-blue-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-800"
+          >
+            Contact Us
+          </a>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-700 text-white">
+        <div className="mx-auto max-w-7xl px-6 py-24 text-center">
+          <p className="mb-5 inline-block rounded-full bg-white/15 px-5 py-2 text-sm font-semibold">
+            Your Complete Learning & Download Platform
+          </p>
+
+          <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
+            Free Software, Education, AI Tools and Career Resources
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-blue-100">
+            Discover trusted software, useful tutorials, educational
+            resources, job updates, AI tools and professional templates.
+          </p>
+
+          {/* Search */}
+          <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-3 rounded-2xl bg-white p-3 shadow-2xl sm:flex-row">
+            <input
+              type="search"
+              placeholder="Search software, tutorials or jobs..."
+              className="w-full rounded-xl px-5 py-4 text-slate-900 outline-none"
+            />
+
+            <button className="rounded-xl bg-blue-700 px-7 py-4 font-bold text-white transition hover:bg-blue-800">
+              Search
+            </button>
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-5 text-sm text-blue-100">
+            <span>✓ Free Resources</span>
+            <span>✓ Trusted Downloads</span>
+            <span>✓ Helpful Tutorials</span>
+            <span>✓ Regular Updates</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="mb-12 text-center">
+          <p className="font-semibold uppercase tracking-wider text-blue-700">
+            Explore Resources
+          </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+            Popular Categories
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+            Find useful resources for learning, working and improving your
+            digital skills.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((category) => (
+            <article
+              key={category.title}
+              className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-3xl">
+                {category.icon}
+              </div>
+
+              <h3 className="text-xl font-bold">{category.title}</h3>
+
+              <p className="mt-3 leading-7 text-slate-600">
+                {category.description}
+              </p>
+
+              <a
+                href="#"
+                className="mt-5 inline-block font-semibold text-blue-700"
+              >
+                Explore Category →
+              </a>
+            </article>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+            {/* Latest Software */}
+      <section
+        id="software"
+        className="border-y border-slate-200 bg-white py-20"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div>
+              <p className="font-semibold uppercase tracking-wider text-blue-700">
+                Free Downloads
+              </p>
+
+              <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+                Latest Software
+              </h2>
+
+              <p className="mt-4 max-w-2xl text-slate-600">
+                Explore useful, trusted and legally available free software.
+              </p>
+            </div>
+
+            <a
+              href="#"
+              className="font-bold text-blue-700 hover:text-blue-900"
+            >
+              View All Software →
+            </a>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {software.map((item) => (
+              <article
+                key={item.name}
+                className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="flex h-40 items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 text-6xl">
+                  {item.icon}
+                </div>
+
+                <div className="p-6">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                      {item.category}
+                    </span>
+
+                    <span className="text-xs text-slate-500">
+                      {item.version}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold">{item.name}</h3>
+
+                  <p className="mt-3 text-sm leading-6 text-slate-600">
+                    {item.description}
+                  </p>
+
+                  <a
+                    href="#"
+                    className="mt-6 block rounded-xl bg-blue-700 px-5 py-3 text-center font-bold text-white transition hover:bg-blue-800"
+                  >
+                    View Download
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+            {/* Footer */}
+      <footer
+        id="contact"
+        className="bg-slate-950 text-slate-300"
+      >
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-xl font-extrabold text-white">
+                E
+              </div>
+
+              <div>
+                <h2 className="text-xl font-extrabold text-white">
+                  EduSoft<span className="text-blue-500">Hub</span>
+                </h2>
+                <p className="text-xs text-slate-400">
+                  Learn. Download. Grow.
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-5 leading-7 text-slate-400">
+              Your trusted platform for free software, education,
+              AI tools, tutorials and career resources.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold text-white">
+              Quick Links
+            </h3>
+
+            <div className="mt-5 flex flex-col gap-3">
+              <a href="#" className="hover:text-blue-400">
+                Home
+              </a>
+              <a href="#software" className="hover:text-blue-400">
+                Software
+              </a>
+              <a href="#education" className="hover:text-blue-400">
+                Education
+              </a>
+              <a href="#jobs" className="hover:text-blue-400">
+                Jobs
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold text-white">
+              Resources
+            </h3>
+
+            <div className="mt-5 flex flex-col gap-3">
+              <a href="#" className="hover:text-blue-400">
+                AI Tools
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                Tutorials
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                CV Templates
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                Blog
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold text-white">
+              Important Pages
+            </h3>
+
+            <div className="mt-5 flex flex-col gap-3">
+              <a href="#" className="hover:text-blue-400">
+                About Us
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                Contact Us
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                Privacy Policy
+              </a>
+              <a href="#" className="hover:text-blue-400">
+                Disclaimer
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-800">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-center text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+            <p>
+              © 2026 EduSoftHub. All rights reserved.
+            </p>
+
+            <p>
+              Free, useful and trusted digital resources.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </main>
   );
 }
