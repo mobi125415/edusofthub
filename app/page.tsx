@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   const categories = [
     {
@@ -24,36 +26,44 @@ export default function Home() {
 
   const software = [
     {
-      icon: "🌐",
+      image: "/software/chrome.png",
       name: "Google Chrome",
       category: "Web Browser",
       version: "Latest Version",
-      description: "Fast, secure and easy-to-use web browser.",
+      description:
+        "Fast, secure and easy-to-use web browser for everyday browsing.",
+      badge: "Popular",
     },
     {
-      icon: "🎬",
+      image: "/software/vlc.png",
       name: "VLC Media Player",
       category: "Media Player",
       version: "Latest Version",
-      description: "Free media player for videos, music and streaming.",
+      description:
+        "Powerful media player for videos, music and multiple file formats.",
+      badge: "Free",
     },
     {
-      icon: "🗜️",
+      image: "/software/7zip.png",
       name: "7-Zip",
       category: "File Compression",
       version: "Latest Version",
-      description: "Open-source tool for compressing and extracting files.",
+      description:
+        "Open-source tool for compressing and extracting files quickly.",
+      badge: "Open Source",
     },
     {
-      icon: "📝",
-      name: "LibreOffice",
+      image: "/software/microsoft-office.png",
+      name: "Microsoft Office",
       category: "Office Software",
       version: "Latest Version",
-      description: "Free office suite for documents and spreadsheets.",
+      description:
+        "Create documents, spreadsheets, presentations and professional work.",
+      badge: "Productivity",
     },
-  ]
+  ];
 
-   return (
+  return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -68,6 +78,7 @@ export default function Home() {
               <h2 className="text-xl font-extrabold">
                 EduSoft<span className="text-blue-700">Hub</span>
               </h2>
+
               <p className="text-xs text-slate-500">
                 Learn. Download. Grow.
               </p>
@@ -176,7 +187,9 @@ export default function Home() {
                 {category.icon}
               </div>
 
-              <h3 className="text-xl font-bold">{category.title}</h3>
+              <h3 className="text-xl font-bold">
+                {category.title}
+              </h3>
 
               <p className="mt-3 leading-7 text-slate-600">
                 {category.description}
@@ -192,7 +205,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-            {/* Latest Software */}
+
+      {/* Latest Software */}
       <section
         id="software"
         className="border-y border-slate-200 bg-white py-20"
@@ -209,7 +223,7 @@ export default function Home() {
               </h2>
 
               <p className="mt-4 max-w-2xl text-slate-600">
-                Explore useful, trusted and legally available free software.
+                Explore useful, trusted and legally available software.
               </p>
             </div>
 
@@ -221,38 +235,59 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-4">
             {software.map((item) => (
               <article
                 key={item.name}
-                className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition hover:-translate-y-1 hover:shadow-xl"
+                className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
               >
-                <div className="flex h-40 items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 text-6xl">
-                  {item.icon}
+                {/* Software Image */}
+                <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-8">
+                  <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700 shadow-sm">
+                    {item.badge}
+                  </span>
+
+                  <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-blue-200/40 blur-2xl" />
+
+                  <Image
+                    src={item.image}
+                    alt={`${item.name} logo`}
+                    width={140}
+                    height={140}
+                    className="relative z-10 h-28 w-28 object-contain transition duration-300 group-hover:scale-110"
+                  />
                 </div>
 
-                <div className="p-6">
-                  <div className="mb-3 flex items-center justify-between gap-3">
+                {/* Software Details */}
+                <div className="flex min-h-[270px] flex-col p-6">
+                  <div className="mb-4 flex items-center justify-between gap-3">
                     <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
                       {item.category}
                     </span>
 
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs font-medium text-slate-500">
                       {item.version}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold">{item.name}</h3>
+                  <h3 className="text-xl font-extrabold text-slate-900 transition group-hover:text-blue-700">
+                    {item.name}
+                  </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-slate-600">
+                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
                     {item.description}
                   </p>
 
+                  <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-medium text-slate-500">
+                    <span>✓ Trusted</span>
+                    <span>✓ Safe Download</span>
+                  </div>
+
                   <a
                     href="#"
-                    className="mt-6 block rounded-xl bg-blue-700 px-5 py-3 text-center font-bold text-white transition hover:bg-blue-800"
+                    className="mt-5 block rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 px-5 py-3.5 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-blue-800 hover:to-indigo-800 hover:shadow-lg"
                   >
-                    View Download
+                    View Download →
                   </a>
                 </div>
               </article>
@@ -260,7 +295,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-            {/* Footer */}
+
+      {/* Footer */}
       <footer
         id="contact"
         className="bg-slate-950 text-slate-300"
@@ -276,6 +312,7 @@ export default function Home() {
                 <h2 className="text-xl font-extrabold text-white">
                   EduSoft<span className="text-blue-500">Hub</span>
                 </h2>
+
                 <p className="text-xs text-slate-400">
                   Learn. Download. Grow.
                 </p>
@@ -297,12 +334,15 @@ export default function Home() {
               <a href="#" className="hover:text-blue-400">
                 Home
               </a>
+
               <a href="#software" className="hover:text-blue-400">
                 Software
               </a>
+
               <a href="#education" className="hover:text-blue-400">
                 Education
               </a>
+
               <a href="#jobs" className="hover:text-blue-400">
                 Jobs
               </a>
@@ -318,12 +358,15 @@ export default function Home() {
               <a href="#" className="hover:text-blue-400">
                 AI Tools
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 Tutorials
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 CV Templates
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 Blog
               </a>
@@ -339,12 +382,15 @@ export default function Home() {
               <a href="#" className="hover:text-blue-400">
                 About Us
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 Contact Us
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 Privacy Policy
               </a>
+
               <a href="#" className="hover:text-blue-400">
                 Disclaimer
               </a>
