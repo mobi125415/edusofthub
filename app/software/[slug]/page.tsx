@@ -1,7 +1,44 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { softwareData } from "../data";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const software = softwareData[slug];
+
+  if (!software) {
+    return {
+      title: "Software Not Found | EduSoftHub",
+    };
+  }
+
+  return {
+    title: `${software.name} Download | EduSoftHub`,
+    description: software.description,
+
+    keywords: [
+      software.name,
+      software.category,
+      software.developer,
+      "Free Download",
+      "Official Download",
+      "EduSoftHub",
+    ],
+
+    openGraph: {
+      title: `${software.name} Download`,
+      description: software.description,
+      images: [software.image],
+    },
+  };
+}
 
 export default async function SoftwarePage({
   params,
@@ -22,7 +59,25 @@ export default async function SoftwarePage({
 
   return (
     <main className="relative z-10 min-h-screen bg-slate-100 px-6 py-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-  <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-10 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+      <div className="mx-auto mb-8 max-w-5xl text-sm text-slate-500">
+  <Link href="/" className="hover:text-blue-700">
+    Home
+  </Link>
+
+  {" / "}
+
+  <Link href="/software" className="hover:text-blue-700">
+    Software
+  </Link>
+
+  {" / "}
+
+  <span className="font-semibold text-slate-900">
+    {software.name}
+  </span>
+</div>
+
+      <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-10 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
         {/* Top Section */}
         <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex items-center justify-center rounded-2xl bg-slate-50 p-6">
@@ -35,40 +90,93 @@ export default async function SoftwarePage({
               priority
             />
           </div>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+          <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+                ✓ Official
+              </span>
 
-          <div className="flex-1">
-            <span className="inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-              {software.category}
-            </span>
+           <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                 ✓ Safe
+           </span>
+         <span className="rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-700">
+            ✓ Free Download
+              </span>
+        </div>
+        </div>
+        <div className="flex-1">
+          <span className="inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+            {software.category}
+          </span>
 
-            <h1 className="mt-5 text-3xl font-bold text-slate-950 sm:text-4xl">
-              {software.name}
-            </h1>
+          <h1 className="mt-5 text-3xl font-bold text-slate-950 sm:text-4xl">
+            {software.name}
+          </h1>
 
-            <p className="mt-4 text-base leading-8 text-slate-700 sm:text-lg">
-              {software.description}
-            </p>
+          <p className="mt-4 text-base leading-8 text-slate-700 sm:text-lg">
+            {software.description}
+          </p>
 
-            <div className="mt-6 grid gap-3 text-sm md:grid-cols-2">
-              <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
-                <span className="font-bold text-slate-950">Version:</span>{" "}
-                {software.version}
-              </div>
-
-              <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
-                <span className="font-bold text-slate-950">Size:</span>{" "}
-                {software.size}
-              </div>
+          <div className="mt-6 grid gap-3 text-sm md:grid-cols-2">
+            <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
+              <span className="font-bold text-slate-950">Version:</span>{" "}
+              {software.version}
             </div>
 
+            <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
+              <span className="font-bold text-slate-950">Size:</span>{" "}
+              {software.size}
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-slate-500">Developer</p>
+              <h3 className="mt-2 font-bold">{software.developer}</h3>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-slate-500">License</p>
+              <h3 className="mt-2 font-bold">{software.license}</h3>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-slate-500">Updated</p>
+              <h3 className="mt-2 font-bold">{software.lastUpdated}</h3>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-xs text-slate-500">Platforms</p>
+              <h3 className="mt-2 font-bold">
+                {software.platforms.length}
+              </h3>
+            </div>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
             <a
               href={software.download}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center justify-center rounded-xl bg-blue-700 px-8 py-4 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-blue-800"
+              className="inline-flex items-center justify-center rounded-xl bg-blue-700 px-8 py-4 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-blue-800"
             >
               Download Official Version
             </a>
+
+            <a
+              href={software.officialWebsite}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-xl border border-blue-600 px-6 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
+            >
+              Official Website
+            </a>
+
+            <span className="inline-flex items-center rounded-xl bg-green-100 px-5 py-3 font-semibold text-green-700">
+              ✓ Official Download
+            </span>
+
+            <span className="inline-flex items-center rounded-xl bg-blue-100 px-5 py-3 font-semibold text-blue-700">
+              ✓ Virus Checked
+            </span>
           </div>
         </div>
 
@@ -109,25 +217,20 @@ export default async function SoftwarePage({
           </h2>
 
           <div className="mt-6 space-y-4">
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-              <h3 className="font-bold text-slate-950">
-                Is this software free?
-              </h3>
+            {software.faqs.map((faq) => (
+              <div
+                key={faq.question}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+              >
+                <h3 className="font-bold text-slate-900">
+                  {faq.question}
+                </h3>
 
-              <p className="mt-2 leading-7 text-slate-700">
-                Download is available from the official website.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-              <h3 className="font-bold text-slate-950">
-                Is it safe to download?
-              </h3>
-
-              <p className="mt-2 leading-7 text-slate-700">
-                Yes. We only provide the official download source.
-              </p>
-            </div>
+                <p className="mt-2 leading-7 text-slate-700">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
