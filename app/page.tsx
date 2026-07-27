@@ -249,9 +249,9 @@ const software = Object.entries(softwareData).map(
 
       {/* Footer */}
       <footer
-        id="contact"
-        className="bg-slate-950 text-slate-300"
-      >
+  id="contact"
+  className="relative z-20 bg-slate-950 text-slate-300"
+>
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-3">
