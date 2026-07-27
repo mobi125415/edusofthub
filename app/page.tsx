@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { softwareData } from "./software/data";
+import HeroSearch from "./components/HeroSearch";
+import ScrollReveal from "./components/ScrollReveal";
+import StatsSection from "./components/StatsSection";
+import AmbientVideoBackground from "./components/AmbientVideoBackground";
+
 
 export default function Home() {
   const categories = [
@@ -34,9 +39,10 @@ const software = Object.entries(softwareData).map(
 );
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
+    <main className="relative min-h-screen bg-transparent text-slate-900">
+  <AmbientVideoBackground />
       {/* Navbar */}
-      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/60 backdrop-blur-2xl backdrop-saturate-150 border-white/40">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
@@ -73,8 +79,8 @@ const software = Object.entries(softwareData).map(
               AI Tools
             </a>
 
-            <a href="#jobs" className="hover:text-blue-700">
-              Jobs
+           <a href="#courses" className="hover:text-blue-700">
+               Enroll for Courses
             </a>
 
             <a href="#blog" className="hover:text-blue-700">
@@ -93,124 +99,98 @@ const software = Object.entries(softwareData).map(
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-700 text-white">
-        <div className="mx-auto max-w-7xl px-6 py-24 text-center">
-          <p className="mb-5 inline-block rounded-full bg-white/15 px-5 py-2 text-sm font-semibold">
-            Your Complete Learning & Download Platform
-          </p>
-
-          <h1 className="mx-auto max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
-            Free Software, Education, AI Tools and Career Resources
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-blue-100">
-            Discover trusted software, useful tutorials, educational
-            resources, job updates, AI tools and professional templates.
-          </p>
-
-          {/* Search */}
-          <div className="mx-auto mt-10 flex max-w-2xl flex-col gap-3 rounded-2xl bg-white p-3 shadow-2xl sm:flex-row">
-            <input
-              type="search"
-              placeholder="Search software, tutorials or jobs..."
-              className="w-full rounded-xl px-5 py-4 text-slate-900 outline-none"
-            />
-
-            <button className="rounded-xl bg-blue-700 px-7 py-4 font-bold text-white transition hover:bg-blue-800">
-              Search
-            </button>
-          </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-5 text-sm text-blue-100">
-            <span>✓ Free Resources</span>
-            <span>✓ Trusted Downloads</span>
-            <span>✓ Helpful Tutorials</span>
-            <span>✓ Regular Updates</span>
-          </div>
-        </div>
-      </section>
-
+          <HeroSearch />
+        <StatsSection />
       {/* Categories */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="mb-12 text-center">
-          <p className="font-semibold uppercase tracking-wider text-blue-700">
-            Explore Resources
-          </p>
+      <section className="relative mx-auto max-w-7xl px-6 py-20">
+       <ScrollReveal>
+  <div className="mb-12 text-center">
+    <p className="font-semibold uppercase tracking-wider text-blue-700">
+      Explore Resources
+    </p>
 
-          <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
-            Popular Categories
-          </h2>
+    <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+      Popular Categories
+    </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-slate-600">
-            Find useful resources for learning, working and improving your
-            digital skills.
-          </p>
-        </div>
+    <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+      Find useful resources for learning, working and improving your
+      digital skills.
+    </p>
+  </div>
+</ScrollReveal>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <article
-              key={category.title}
-              className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-3xl">
-                {category.icon}
-              </div>
+          {categories.map((category, index) => (
+          <ScrollReveal
+          key={category.title}
+           delay={index * 150}
+           >
+         <article className="h-full rounded-2xl border border-white/70 bg-white/80 p-7 shadow-sm backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:border-blue-300 hover:bg-white/90 hover:shadow-2xl">
+      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-3xl">
+        {category.icon}
+      </div>
 
-              <h3 className="text-xl font-bold">
-                {category.title}
-              </h3>
+      <h3 className="text-xl font-bold">
+        {category.title}
+      </h3>
 
-              <p className="mt-3 leading-7 text-slate-600">
-                {category.description}
-              </p>
+      <p className="mt-3 leading-7 text-slate-600">
+        {category.description}
+      </p>
 
-              <a
-                href="#"
-                className="mt-5 inline-block font-semibold text-blue-700"
-              >
-                Explore Category →
-              </a>
-            </article>
-          ))}
+      <a
+        href="#"
+        className="mt-5 inline-block font-semibold text-blue-700"
+      >
+        Explore Category →
+          </a>
+       </article>
+  </ScrollReveal>
+))}
         </div>
       </section>
 
       {/* Latest Software */}
       <section
         id="software"
-        className="border-y border-slate-200 bg-white py-20"
+        className="border-y border-slate-200/80 bg-white/80 py-20 backdrop-blur-[2px]"
       >
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <p className="font-semibold uppercase tracking-wider text-blue-700">
-                Free Downloads
-              </p>
+          <ScrollReveal>
+  <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+    <div>
+      <p className="font-semibold uppercase tracking-wider text-blue-700">
+        Free Downloads
+      </p>
 
-              <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
-                Latest Software
-              </h2>
+      <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+        Latest Software
+      </h2>
 
-              <p className="mt-4 max-w-2xl text-slate-600">
-                Explore useful, trusted and legally available software.
-              </p>
-            </div>
+      <p className="mt-4 max-w-2xl text-slate-600">
+        Explore useful, trusted and legally available software.
+      </p>
+    </div>
 
-            <a
-              href="#"
-              className="font-bold text-blue-700 hover:text-blue-900"
-            >
-              View All Software →
-            </a>
-          </div>
+    <a
+      href="/software"
+      className="font-bold text-blue-700 transition hover:translate-x-1 hover:text-blue-900"
+    >
+      View All Software →
+    </a>
+  </div>
+</ScrollReveal>
 
           <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-4">
-            {software.map((item) => (
-              <article
-                key={item.name}
-                className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-200 hover:shadow-2xl"
-              >
+            {software.map((item, index) => (
+  <ScrollReveal
+    key={item.name}
+    delay={index * 150}
+  >
+    <article
+      className="group overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-sm backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:border-blue-300 hover:bg-white/90 hover:shadow-2xl"
+    >
                 {/* Software Image */}
                 <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-8">
                   <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700 shadow-sm">
@@ -258,10 +238,11 @@ const software = Object.entries(softwareData).map(
   className="mt-5 block rounded-xl bg-gradient-to-r from-blue-700 to-indigo-700 px-5 py-3.5 text-center font-bold text-white shadow-md transition-all duration-300 hover:from-blue-800 hover:to-indigo-800 hover:shadow-lg"
 >
   View Download →
-</Link>
-                </div>
-              </article>
-            ))}
+          </Link>
+        </div>
+      </article>
+      </ScrollReveal>
+      ))}
           </div>
         </div>
       </section>
