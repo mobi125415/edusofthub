@@ -21,8 +21,8 @@ export default async function SoftwarePage({
   );
 
   return (
-    <main className="relative min-h-screen bg-slate-100 px-4 py-12 text-slate-900 sm:px-6 sm:py-16">
-      <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-6 text-slate-900 shadow-xl sm:p-10">
+    <main className="relative z-10 min-h-screen bg-slate-100 px-6 py-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-10 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
         {/* Top Section */}
         <div className="flex flex-col gap-10 md:flex-row">
           <div className="flex items-center justify-center rounded-2xl bg-slate-50 p-6">
@@ -74,13 +74,15 @@ export default async function SoftwarePage({
 
         {/* Features */}
         <section className="mt-14">
-          <h2 className="text-2xl font-bold text-slate-950">Features</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+            Features
+          </h2>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {software.features.map((feature) => (
               <div
                 key={feature}
-                className="rounded-xl border border-slate-200 bg-slate-100 p-4 font-medium text-slate-800"
+                className="rounded-xl bg-slate-100 p-4 text-slate-800 dark:bg-slate-800 dark:text-slate-200"
               >
                 <span className="mr-2 font-bold text-green-600">✓</span>
                 {feature}
@@ -95,7 +97,7 @@ export default async function SoftwarePage({
             System Requirements
           </h2>
 
-          <p className="mt-3 leading-7 text-slate-700">
+          <p className="mt-3 text-slate-600 dark:text-slate-300">
             {software.requirements}
           </p>
         </section>

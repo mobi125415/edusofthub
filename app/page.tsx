@@ -5,31 +5,43 @@ import HeroSearch from "./components/HeroSearch";
 import ScrollReveal from "./components/ScrollReveal";
 import StatsSection from "./components/StatsSection";
 import AmbientVideoBackground from "./components/AmbientVideoBackground";
+import { gamesData } from "./games/data";
+import FeaturedGamesSlider from "./components/FeaturedGamesSlider";
 
 
 export default function Home() {
   const categories = [
-    {
-      icon: "💻",
-      title: "Free Software",
-      description: "Download useful and trusted free software.",
-    },
-    {
-      icon: "📚",
-      title: "Education",
-      description: "Notes, tutorials, study guides and resources.",
-    },
-    {
-      icon: "🤖",
-      title: "AI Tools",
-      description: "Discover the latest AI tools and helpful guides.",
-    },
-    {
-      icon: "💼",
-      title: "Jobs",
-      description: "Explore government, private and online jobs.",
-    },
-  ];
+  {
+    title: "Free Software",
+    description: "Download useful and trusted free software.",
+    icon: "💻",
+    href: "/software",
+  },
+  {
+    title: "Education",
+    description: "Notes, tutorials, study guides and resources.",
+    icon: "📚",
+    href: "/education",
+  },
+  {
+    title: "AI Tools",
+    description: "Discover the latest AI tools and helpful guides.",
+    icon: "🤖",
+    href: "/ai-tools",
+  },
+  {
+    title: "Enroll for Courses",
+    description: "Enroll in online courses and upgrade your skills.",
+    icon: "🎓",
+    href: "/courses",
+  },
+  {
+    title: "Fees Software for School",
+    description: "Smart fee management software solutions for schools.",
+    icon: "🏫",
+    href: "/school-fees-software",
+  },
+];
 const software = Object.entries(softwareData).map(
   ([slug, item]) => ({
     slug,
@@ -37,6 +49,13 @@ const software = Object.entries(softwareData).map(
     badge: "Popular",
   })
 );
+
+const popularGames = Object.entries(gamesData)
+  .slice(0, 3)
+  .map(([slug, item]) => ({
+    slug,
+    ...item,
+  }));
 
   return (
     <main className="relative min-h-screen bg-transparent text-slate-900">
@@ -101,6 +120,7 @@ const software = Object.entries(softwareData).map(
       {/* Hero Section */}
           <HeroSearch />
         <StatsSection />
+        <FeaturedGamesSlider />
       {/* Categories */}
       <section className="relative mx-auto max-w-7xl px-6 py-20">
        <ScrollReveal>
@@ -246,6 +266,97 @@ const software = Object.entries(softwareData).map(
           </div>
         </div>
       </section>
+
+
+      {/* Popular Games */}
+<section id="games" className="relative py-20">
+  <div className="mx-auto max-w-7xl px-6">
+
+    <ScrollReveal>
+      <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <div>
+          <p className="font-semibold uppercase tracking-wider text-blue-700">
+            Play and Explore
+          </p>
+
+          <h2 className="mt-3 text-3xl font-extrabold md:text-4xl">
+            Popular PC Games
+          </h2>
+
+          <p className="mt-4 max-w-2xl text-slate-600">
+            Discover popular PC games with official download links,
+            requirements and detailed information.
+          </p>
+        </div>
+
+        <Link
+          href="/games"
+          className="font-bold text-blue-700 transition hover:translate-x-1 hover:text-blue-900"
+        >
+          View All Games →
+        </Link>
+      </div>
+    </ScrollReveal>
+
+    <div className="mt-12 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+      {popularGames.map((game, index) => (
+        <ScrollReveal
+          key={game.slug}
+          delay={index * 150}
+        >
+          <article className="group overflow-hidden rounded-3xl border border-white/70 bg-white/80 shadow-lg backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:border-blue-300 hover:bg-white/90 hover:shadow-2xl">
+
+            <div className="relative flex h-56 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-8">
+
+              <span className="absolute left-4 top-4 rounded-full bg-blue-700 px-3 py-1 text-xs font-bold text-white">
+                Popular
+              </span>
+
+              <Image
+                src={game.image}
+                alt={game.name}
+                width={150}
+                height={150}
+                className="relative z-10 h-32 w-32 object-contain transition duration-300 group-hover:scale-110"
+              />
+            </div>
+
+            <div className="flex min-h-[260px] flex-col p-6">
+
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                  {game.category}
+                </span>
+
+                <span className="text-xs text-slate-500">
+                  {game.size}
+                </span>
+              </div>
+
+              <h3 className="mt-4 text-2xl font-bold text-slate-900">
+                {game.name}
+              </h3>
+
+              <p className="mt-3 flex-1 text-slate-600">
+                {game.description}
+              </p>
+
+              <Link
+                href={`/games/${game.slug}`}
+                className="mt-6 block rounded-xl bg-blue-700 py-3 text-center font-bold text-white transition hover:bg-blue-800"
+              >
+                View Game →
+              </Link>
+
+            </div>
+
+          </article>
+        </ScrollReveal>
+      ))}
+    </div>
+
+  </div>
+</section>
 
       {/* Footer */}
       <footer

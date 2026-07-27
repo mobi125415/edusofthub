@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppButton from "./components/WhatsAppButton";
+import ThemeProvider from "./components/ThemeProvider";
+import ThemeToggle from "./components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "EduSoftHub - Software, Education, AI Tools and Jobs",
@@ -14,10 +16,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {children}
-        <WhatsAppButton />
+        <ThemeProvider>
+          {children}
+
+          <div className="fixed right-4 top-4 z-[9999] sm:right-6 sm:top-5">
+            <ThemeToggle />
+          </div>
+
+          <WhatsAppButton />
+        </ThemeProvider>
       </body>
     </html>
   );
