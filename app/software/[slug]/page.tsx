@@ -10,8 +10,7 @@ export default async function SoftwarePage({
 }) {
   const { slug } = await params;
 
-  const software =
-    softwareData[slug as keyof typeof softwareData];
+  const software = softwareData[slug as keyof typeof softwareData];
 
   if (!software) {
     notFound();
@@ -22,40 +21,43 @@ export default async function SoftwarePage({
   );
 
   return (
-    <main className="min-h-screen bg-slate-50 px-6 py-16">
-      <div className="mx-auto max-w-5xl rounded-3xl bg-white p-10 shadow-lg">
+    <main className="relative min-h-screen bg-slate-100 px-4 py-12 text-slate-900 sm:px-6 sm:py-16">
+      <div className="mx-auto max-w-5xl rounded-3xl border border-slate-200 bg-white p-6 text-slate-900 shadow-xl sm:p-10">
         {/* Top Section */}
         <div className="flex flex-col gap-10 md:flex-row">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center rounded-2xl bg-slate-50 p-6">
             <Image
               src={software.image}
               alt={software.name}
               width={180}
               height={180}
               className="object-contain"
+              priority
             />
           </div>
 
           <div className="flex-1">
-            <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+            <span className="inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
               {software.category}
             </span>
 
-            <h1 className="mt-5 text-4xl font-bold text-slate-900">
+            <h1 className="mt-5 text-3xl font-bold text-slate-950 sm:text-4xl">
               {software.name}
             </h1>
 
-            <p className="mt-4 text-lg text-slate-600">
+            <p className="mt-4 text-base leading-8 text-slate-700 sm:text-lg">
               {software.description}
             </p>
 
             <div className="mt-6 grid gap-3 text-sm md:grid-cols-2">
-              <div className="rounded-xl bg-slate-100 p-4">
-                <b>Version:</b> {software.version}
+              <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
+                <span className="font-bold text-slate-950">Version:</span>{" "}
+                {software.version}
               </div>
 
-              <div className="rounded-xl bg-slate-100 p-4">
-                <b>Size:</b> {software.size}
+              <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-slate-800">
+                <span className="font-bold text-slate-950">Size:</span>{" "}
+                {software.size}
               </div>
             </div>
 
@@ -63,7 +65,7 @@ export default async function SoftwarePage({
               href={software.download}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-xl bg-blue-700 px-8 py-4 font-bold text-white transition hover:bg-blue-800"
+              className="mt-8 inline-flex items-center justify-center rounded-xl bg-blue-700 px-8 py-4 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-1 hover:bg-blue-800"
             >
               Download Official Version
             </a>
@@ -72,56 +74,55 @@ export default async function SoftwarePage({
 
         {/* Features */}
         <section className="mt-14">
-          <h2 className="text-2xl font-bold">
-            Features
-          </h2>
+          <h2 className="text-2xl font-bold text-slate-950">Features</h2>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             {software.features.map((feature) => (
               <div
                 key={feature}
-                className="rounded-xl bg-slate-100 p-4"
+                className="rounded-xl border border-slate-200 bg-slate-100 p-4 font-medium text-slate-800"
               >
-                ✓ {feature}
+                <span className="mr-2 font-bold text-green-600">✓</span>
+                {feature}
               </div>
             ))}
           </div>
         </section>
 
         {/* Requirements */}
-        <section className="mt-10">
-          <h2 className="text-2xl font-bold">
+        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="text-2xl font-bold text-slate-950">
             System Requirements
           </h2>
 
-          <p className="mt-3 text-slate-600">
+          <p className="mt-3 leading-7 text-slate-700">
             {software.requirements}
           </p>
         </section>
 
         {/* FAQ */}
         <section className="mt-12">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-slate-950">
             Frequently Asked Questions
           </h2>
 
-          <div className="mt-6 space-y-6">
-            <div>
-              <h3 className="font-semibold">
+          <div className="mt-6 space-y-4">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <h3 className="font-bold text-slate-950">
                 Is this software free?
               </h3>
 
-              <p className="mt-2 text-slate-600">
+              <p className="mt-2 leading-7 text-slate-700">
                 Download is available from the official website.
               </p>
             </div>
 
-            <div>
-              <h3 className="font-semibold">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <h3 className="font-bold text-slate-950">
                 Is it safe to download?
               </h3>
 
-              <p className="mt-2 text-slate-600">
+              <p className="mt-2 leading-7 text-slate-700">
                 Yes. We only provide the official download source.
               </p>
             </div>
@@ -130,16 +131,16 @@ export default async function SoftwarePage({
 
         {/* Related Software */}
         <section className="mt-12">
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-slate-950">
             Related Software
           </h2>
 
-          <div className="mt-6 grid gap-5 pb-4 md:grid-cols-3">
+          <div className="mt-6 grid gap-5 pb-4 sm:grid-cols-2 md:grid-cols-3">
             {relatedSoftware.map(([key, item]) => (
               <Link
                 key={key}
                 href={`/software/${key}`}
-                className="group relative min-h-[220px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-5 transition-all duration-300 hover:-translate-y-3 hover:border-blue-600 hover:bg-blue-700 hover:shadow-2xl"
+                className="group relative min-h-[220px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 p-5 text-slate-900 transition-all duration-300 hover:-translate-y-2 hover:border-blue-600 hover:bg-blue-700 hover:shadow-2xl"
               >
                 <div className="flex flex-col items-center text-center">
                   <Image
@@ -150,11 +151,11 @@ export default async function SoftwarePage({
                     className="h-16 w-16 object-contain transition duration-300 group-hover:scale-110"
                   />
 
-                  <h3 className="mt-4 font-bold text-slate-900 transition group-hover:text-white">
+                  <h3 className="mt-4 font-bold text-slate-950 transition duration-300 group-hover:text-white">
                     {item.name}
                   </h3>
 
-                  <p className="mt-1 text-sm text-slate-600 transition group-hover:text-blue-100">
+                  <p className="mt-1 text-sm text-slate-700 transition duration-300 group-hover:text-blue-100">
                     {item.category}
                   </p>
                 </div>
@@ -170,6 +171,3 @@ export default async function SoftwarePage({
     </main>
   );
 }
-
-
-
