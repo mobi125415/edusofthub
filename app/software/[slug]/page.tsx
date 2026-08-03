@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { softwareData } from "../data";
 
+
 export async function generateMetadata({
   params,
 }: {

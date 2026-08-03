@@ -3,7 +3,6 @@ import "./globals.css";
 import WhatsAppButton from "./components/WhatsAppButton";
 import ThemeProvider from "./components/ThemeProvider";
 import ThemeToggle from "./components/ThemeToggle";
-
 export const metadata: Metadata = {
   title: "EduSoftHub - Software, Education, AI Tools and Jobs",
   description:

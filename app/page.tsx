@@ -7,6 +7,7 @@ import StatsSection from "./components/StatsSection";
 import AmbientVideoBackground from "./components/AmbientVideoBackground";
 import { gamesData } from "./games/data";
 import FeaturedGamesSlider from "./components/FeaturedGamesSlider";
+import { aiToolsData } from "./ai-tools/data";
 
 
 export default function Home() {
@@ -56,9 +57,29 @@ export default function Home() {
       slug,
       ...item,
     }));
+   
+    const popularAITools = Object.entries(aiToolsData)
+  .slice(0, 4)
+  .map(([slug, item]) => ({
+    slug,
+    ...item,
+  }));
+
+const trendingSoftware = Object.entries(softwareData)
+  .slice(0, 4)
+  .map(([slug, item], index) => ({
+    slug,
+    ...item,
+    downloads: [
+      "3.2M",
+      "2.8M",
+      "1.7M",
+      "5.4M",
+    ][index],
+  }));
 
   return (
-    <main className="relative min-h-screen bg-transparent text-slate-900">
+      <main className="relative min-h-screen bg-transparent text-slate-900">
       <AmbientVideoBackground />
       {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/60 backdrop-blur-2xl backdrop-saturate-150 border-white/40">
@@ -356,8 +377,155 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+<section className="py-20">
 
+<div className="mx-auto max-w-7xl px-6">
+
+<div className="mb-12 text-center">
+
+<p className="font-semibold uppercase tracking-widest text-blue-700">
+Trending
+</p>
+
+<h2 className="mt-3 text-4xl font-extrabold">
+🔥 Trending Downloads
+</h2>
+
+</div>
+
+<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+
+{trendingSoftware.map((item)=>(
+
+<div
+key={item.slug}
+className="group rounded-3xl border border-slate-200 bg-white p-7 shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-blue-500 hover:shadow-2xl"
+>
+
+<Image
+src={item.image}
+alt={item.name}
+width={90}
+height={90}
+className="mx-auto h-20 w-20 object-contain transition duration-500 group-hover:scale-110"
+/>
+
+<h3 className="mt-6 text-center text-xl font-bold">
+{item.name}
+</h3>
+
+<p className="mt-2 text-center text-yellow-500">
+★★★★★
+</p>
+
+<p className="mt-3 text-center text-slate-600">
+
+{item.downloads} Downloads
+
+</p>
+
+<Link
+href={`/software/${item.slug}`}
+className="mt-6 block rounded-xl bg-blue-700 py-3 text-center font-bold text-white hover:bg-blue-800"
+>
+
+View Software →
+
+</Link>
+
+</div>
+
+))}
+
+</div>
+
+</div>
+
+</section>
+
+
+        {/* AI Tools */}
+<section id="ai-tools" className="py-20 bg-white/80">
+  <div className="mx-auto max-w-7xl px-6">
+
+    <div className="mb-12 flex items-end justify-between">
+
+      <div>
+
+        <p className="font-semibold uppercase tracking-wider text-blue-700">
+          Artificial Intelligence
+        </p>
+
+        <h2 className="mt-3 text-4xl font-extrabold">
+          Popular AI Tools
+        </h2>
+
+      </div>
+
+      <Link
+        href="/ai-tools"
+        className="font-bold text-blue-700"
+      >
+        View All →
+      </Link>
+
+    </div>
+
+    <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
+
+      {popularAITools.map((tool) => (
+
+       <article
+          key={tool.slug}
+         className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all duration-500 hover:-translate-y-3 hover:scale-[1.02] hover:border-blue-400 hover:shadow-2xl"
+        >
+
+          <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+            
+            <Image
+  src={tool.image}
+  alt={tool.name}
+  width={120}
+  height={120}
+  className="h-28 w-28 object-contain transition duration-500 group-hover:scale-110"
+/>
+
+          </div>
+
+          <div className="p-6">
+
+            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+              {tool.category}
+            </span>
+
+            <h3 className="mt-4 text-xl font-bold text-slate-900 transition duration-300 group-hover:text-blue-700">
+              {tool.name}
+            </h3>
+
+            <p className="mt-3 text-sm text-slate-600">
+              {tool.description}
+            </p>
+
+            <Link
+              href={`/ai-tools/${tool.slug}`}
+              className="mt-6 block rounded-xl bg-blue-700 py-3 text-center font-bold text-white transition-all duration-300 hover:bg-blue-800 group-hover:shadow-lg"
+            >
+              View Tool →
+            </Link>
+
+          </div>
+
+        </article>
+
+      ))}
+
+    </div>
+
+  </div>
+</section>
+
+      </section>
+      
       {/* Footer */}
       <footer
         id="contact"
@@ -473,6 +641,7 @@ export default function Home() {
         </div>
       </footer>
     </main>
+    
   );
 }
 
