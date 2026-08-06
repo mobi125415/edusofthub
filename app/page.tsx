@@ -8,7 +8,7 @@ import AmbientVideoBackground from "./components/AmbientVideoBackground";
 import { gamesData } from "./games/data";
 import FeaturedGamesSlider from "./components/FeaturedGamesSlider";
 import { aiToolsData } from "./ai-tools/data";
-
+import { blogData } from "./blog/data";
 
 export default function Home() {
   const categories = [
@@ -77,7 +77,12 @@ const trendingSoftware = Object.entries(softwareData)
       "5.4M",
     ][index],
   }));
-
+const latestBlogs = Object.entries(blogData)
+  .slice(0, 3)
+  .map(([slug, item]) => ({
+    slug,
+    ...item,
+  }));
   return (
       <main className="relative min-h-screen bg-transparent text-slate-900">
       <AmbientVideoBackground />
@@ -85,7 +90,7 @@ const trendingSoftware = Object.entries(softwareData)
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/60 backdrop-blur-2xl backdrop-saturate-150 border-white/40">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 text-xl font-bold text-white">
               E
             </div>
@@ -99,42 +104,46 @@ const trendingSoftware = Object.entries(softwareData)
                 Learn. Download. Grow.
               </p>
             </div>
-          </a>
+          </Link>
 
           {/* Navigation Links */}
-          <div className="hidden items-center gap-7 text-sm font-semibold md:flex">
-            <a href="#" className="text-blue-700">
-              Home
-            </a>
+          <div className="hidden items-center gap-5 text-sm font-semibold md:flex">
+  <Link href="/" className="text-blue-700">
+    Home
+  </Link>
 
-            <a href="#software" className="hover:text-blue-700">
-              Software
-            </a>
+  <Link href="/software" className="hover:text-blue-700">
+    Software
+  </Link>
 
-            <a href="#education" className="hover:text-blue-700">
-              Education
-            </a>
+  <Link href="/games" className="hover:text-blue-700">
+    Games
+  </Link>
 
-            <a href="#ai-tools" className="hover:text-blue-700">
-              AI Tools
-            </a>
+  <Link href="/education" className="hover:text-blue-700">
+    Education
+  </Link>
 
-            <a href="#courses" className="hover:text-blue-700">
-              Enroll for Courses
-            </a>
+  <Link href="/ai-tools" className="hover:text-blue-700">
+    AI Tools
+  </Link>
 
-            <a href="#blog" className="hover:text-blue-700">
-              Blog
-            </a>
-          </div>
+  <Link href="/blog" className="hover:text-blue-700">
+    Blog
+  </Link>
+
+  <Link href="/about" className="hover:text-blue-700">
+    About
+  </Link>
+</div>
 
           {/* Contact Button */}
-          <a
-            href="#contact"
-            className="rounded-lg bg-blue-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-800"
-          >
-            Contact Us
-          </a>
+          <Link
+  href="/contact"
+  className="rounded-lg bg-blue-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-800"
+>
+  Contact Us
+</Link>
         </nav>
       </header>
 
@@ -180,12 +189,14 @@ const trendingSoftware = Object.entries(softwareData)
                   {category.description}
                 </p>
 
-                <a
-                  href="#"
-                  className="mt-5 inline-block font-semibold text-blue-700"
-                >
+                <Link
+                  href={category.href}
+                  className="mt-5 inline-block font-semibold text-blue-700 transition hover:text-blue-900"
+                  >
                   Explore Category →
-                </a>
+                </Link>
+
+
               </article>
             </ScrollReveal>
           ))}
@@ -214,12 +225,12 @@ const trendingSoftware = Object.entries(softwareData)
                 </p>
               </div>
 
-              <a
+              <Link
                 href="/software"
                 className="font-bold text-blue-700 transition hover:translate-x-1 hover:text-blue-900"
               >
                 View All Software →
-              </a>
+              </Link>
             </div>
           </ScrollReveal>
 
@@ -459,8 +470,11 @@ View Software →
         <h2 className="mt-3 text-4xl font-extrabold">
           Popular AI Tools
         </h2>
-
-      </div>
+        <p className="mt-4 max-w-2xl text-slate-600">
+          Explore the latest AI tools and resources to enhance your
+          productivity and creativity.
+        </p>  
+        </div>
 
       <Link
         href="/ai-tools"
@@ -470,7 +484,7 @@ View Software →
       </Link>
 
     </div>
-
+    
     <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-4">
 
       {popularAITools.map((tool) => (
@@ -525,7 +539,111 @@ View Software →
 </section>
 
       </section>
-      
+
+     {/* Latest Blog */}
+<section
+  id="blog"
+  className="relative z-10 bg-slate-50/95 py-20"
+>
+  <div className="mx-auto max-w-7xl px-6">
+    <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+      <div>
+        <p className="font-semibold uppercase tracking-wider text-blue-700">
+          Blog
+        </p>
+
+        <h2 className="mt-3 text-4xl font-extrabold text-slate-900">
+          Latest Articles
+        </h2>
+
+        <p className="mt-4 max-w-2xl text-slate-600">
+          Read useful guides about software, AI tools, Windows tips and
+          technology.
+        </p>
+      </div>
+
+      <Link
+        href="/blog"
+        className="font-bold text-blue-700 transition hover:text-blue-900"
+      >
+        View All Articles →
+      </Link>
+    </div>
+
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {latestBlogs.map((post) => (
+        <article
+          key={post.slug}
+          className="group relative z-10 flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-blue-400 hover:shadow-2xl"
+        >
+          <div className="relative h-56 w-full shrink-0 overflow-hidden bg-slate-100">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover object-center opacity-100 transition-transform duration-500 group-hover:scale-110"
+            />
+          </div>
+
+          <div className="relative z-10 flex flex-1 flex-col bg-white p-6">
+            <span className="w-fit rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+              {post.category}
+            </span>
+
+            <h3 className="mt-4 text-2xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-blue-700">
+              {post.title}
+            </h3>
+
+            <p className="mt-3 flex-1 leading-7 text-slate-600">
+              {post.description}
+            </p>
+
+            <Link
+              href={`/blog/${post.slug}`}
+              className="mt-6 block rounded-xl bg-blue-700 py-3 text-center font-bold text-white transition hover:bg-blue-800"
+            >
+              Read Article →
+            </Link>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* About EduSoftHub */}
+<section className="bg-white py-20">
+  <div className="mx-auto max-w-7xl px-6">
+
+    <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-indigo-700 p-10 text-white">
+
+      <p className="text-sm font-semibold uppercase tracking-wider">
+        About EduSoftHub
+      </p>
+
+      <h2 className="mt-4 text-4xl font-extrabold">
+        Trusted Software, AI Tools & Educational Resources
+      </h2>
+
+      <p className="mt-5 max-w-3xl text-blue-100">
+        EduSoftHub provides trusted software downloads, AI tools,
+        educational resources, games and technology articles from
+        official sources.
+      </p>
+
+      <Link
+        href="/about"
+        className="mt-8 inline-block rounded-xl bg-white px-7 py-3 font-bold text-blue-700 transition hover:bg-blue-50"
+      >
+        Learn More →
+      </Link>
+
+    </div>
+
+  </div>
+</section>
+
       {/* Footer */}
       <footer
         id="contact"
@@ -561,21 +679,24 @@ View Software →
             </h3>
 
             <div className="mt-5 flex flex-col gap-3">
-              <a href="#" className="hover:text-blue-400">
-                Home
-              </a>
+              <Link
+  href="/privacy-policy"
+  className="hover:text-blue-400"
+>
+  Privacy Policy
+</Link>
 
-              <a href="#software" className="hover:text-blue-400">
-                Software
-              </a>
+              <Link href="/software" className="hover:text-blue-400">
+                 Software
+              </Link>
 
-              <a href="#education" className="hover:text-blue-400">
+              <Link href="/education" className="hover:text-blue-400">
                 Education
-              </a>
+              </Link>
 
-              <a href="#jobs" className="hover:text-blue-400">
-                Jobs
-              </a>
+              <Link href="/games" className="hover:text-blue-400">
+                Games
+              </Link>
             </div>
           </div>
 
@@ -585,21 +706,21 @@ View Software →
             </h3>
 
             <div className="mt-5 flex flex-col gap-3">
-              <a href="#" className="hover:text-blue-400">
-                AI Tools
-              </a>
+              <Link href="/ai-tools" className="hover:text-blue-400">
+                  AI Tools
+              </Link>
 
-              <a href="#" className="hover:text-blue-400">
-                Tutorials
-              </a>
+              <Link href="/blog" className="hover:text-blue-400">
+                  Tutorials
+              </Link>
 
-              <a href="#" className="hover:text-blue-400">
+              <Link href="/cv-templates" className="hover:text-blue-400">
                 CV Templates
-              </a>
+              </Link>
 
-              <a href="#" className="hover:text-blue-400">
-                Blog
-              </a>
+              <Link href="/blog" className="hover:text-blue-400">
+                  Blog
+              </Link>
             </div>
           </div>
 
@@ -609,21 +730,24 @@ View Software →
             </h3>
 
             <div className="mt-5 flex flex-col gap-3">
-              <a href="#" className="hover:text-blue-400">
-                About Us
-              </a>
+              <Link href="/about" className="hover:text-blue-400">
+                  About Us
+              </Link>
 
-              <a href="#" className="hover:text-blue-400">
+              <Link href="/contact" className="hover:text-blue-400">
                 Contact Us
-              </a>
+              </Link>
 
-              <a href="#" className="hover:text-blue-400">
-                Privacy Policy
-              </a>
+              <Link
+               href="/privacy-policy"
+               className="hover:text-blue-400"
+                >
+               Privacy Policy
+               </Link>
 
-              <a href="#" className="hover:text-blue-400">
+              <Link href="/disclaimer" className="hover:text-blue-400">
                 Disclaimer
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -631,7 +755,7 @@ View Software →
         <div className="border-t border-slate-800">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-center text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
             <p>
-              © 2026 EduSoftHub. All rights reservedcd C:\Users\TRAVELO\Desktop\edusofthub-clean.
+              © 2026 EduSoftHub. All rights reserved.
             </p>
 
             <p>
@@ -644,6 +768,7 @@ View Software →
     
   );
 }
+
 
 
 
